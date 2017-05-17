@@ -28,7 +28,7 @@ module Huyegger
 
     # This method is invoked when a log event occurs
     def call(severity, timestamp, progname, msg)
-      msg = original_formatter.call(severity, timestamp, progname, msg) if original_formatter
+      msg = original_formatter.call(severity, timestamp, progname, msg) if original_formatter && String === msg
       json_message = {}
 
       add_severity!(json_message, severity)
