@@ -20,7 +20,7 @@ logger = Huyegger::Logger.new(file_logger)
 
 # or better
 # require "syslog/logger"
-file_logger = Syslog::Logger.new("your_progname")
+syslog_logger = Syslog::Logger.new("your_progname")
 logger = Huyegger::Logger.new(syslog_logger)
 
 # Write messages:
@@ -40,7 +40,8 @@ logger.purge_context!
 # Configure json encoder
 Huyegger.json_encoder = proc { |obj, *opts| Oj.dump(obj, *opts) }
 
-# Default implementation of json_encoder uses `Object#to_json`, but you need to `require "json"` to use default json encoder.
+# Default implementation of json_encoder uses `Object#to_json`,
+# but you need to `require "json"` to use default json encoder.
 ```
 
 ## Contributing
