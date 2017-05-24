@@ -26,12 +26,12 @@ logger = Huyegger::Logger.new(syslog_logger)
 # Write messages:
 logger.info "log message"
 # => { "level": "INFO", "message": "test" }
-logger.info { "http.host" => '127.0.0.1', message: "log message" }
+logger.info { "http.host" => "127.0.0.1", message: "log message" }
 # => { "level": "INFO", "message": "test", "http.host": "127.0.0.1" }
 
 # Store context for all log messages, it will be merged to resulting messages
-logger.context("http.host" => '127.0.0.1')
-logger.info('test')
+logger.context("http.host" => "127.0.0.1")
+logger.info("test")
 # => { "level": "INFO", "message": "test", "http.host": "127.0.0.1" }
 
 # Remove context
@@ -42,6 +42,29 @@ Huyegger.json_encoder = proc { |obj, *opts| Oj.dump(obj, *opts) }
 
 # Default implementation of json_encoder uses `Object#to_json`,
 # but you need to `require "json"` to use default json encoder.
+```
+
+To use with Rails
+
+```ruby
+# inside config/enviroments/production.rb
+require "huyegger/railtie"
+
+# inside app/controller/application_controller.rb
+class ApplicationController < ActionController::Base
+  before_action :set_context
+
+  ...
+
+  def set_context
+    Rails.logger.context(
+      "http.host" => request.host,
+      "http.method" => request.request_method,
+      "http.path" => request.path,
+      "http.addr" => request.remote_ip
+    ) if Rails.logger.respond_to?(:context)
+  end
+end
 ```
 
 ## Contributing

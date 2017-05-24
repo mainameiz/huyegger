@@ -19,19 +19,19 @@ class Huyegger::LoggerTest < Minitest::Test
   end
 
   def test_output
-    @huyegger.info('test')
+    @huyegger.info("test")
     assert_equal(output, { level: "INFO", message: "test" }.to_json)
   end
 
   def test_level
     @logger.level = Logger::FATAL
-    @huyegger.info('test')
-    assert_equal(output, '')
+    @huyegger.info("test")
+    assert_equal(output, "")
   end
 
   def test_context
     @huyegger.context(meta: "metadata")
-    @huyegger.info('test')
+    @huyegger.info("test")
     assert_equal(output, { level: "INFO", meta: "metadata", message: "test" }.to_json)
   end
 end

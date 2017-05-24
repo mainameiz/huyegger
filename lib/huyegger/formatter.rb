@@ -4,12 +4,12 @@ require "logger"
 module Huyegger
   class Formatter
     SEVERITY_STR = {
-      ::Logger::DEBUG => 'DEBUG',
-      ::Logger::INFO => 'INFO',
-      ::Logger::WARN => 'WARN',
-      ::Logger::ERROR => 'ERROR',
-      ::Logger::FATAL => 'FATAL',
-      ::Logger::UNKNOWN => 'UNKNOWN'
+      ::Logger::DEBUG => "DEBUG",
+      ::Logger::INFO => "INFO",
+      ::Logger::WARN => "WARN",
+      ::Logger::ERROR => "ERROR",
+      ::Logger::FATAL => "FATAL",
+      ::Logger::UNKNOWN => "UNKNOWN"
     }
 
     attr_reader :original_formatter
@@ -35,7 +35,7 @@ module Huyegger
       json_message.merge!(__context__)
       add_message!(json_message, msg)
 
-      Huyegger.json_encoder.call(json_message)
+      "#{Huyegger.json_encoder.call(json_message)}\n"
     end
 
     private
@@ -43,23 +43,23 @@ module Huyegger
     def add_severity!(json_message, severity)
       case severity
       when String
-        json_message.merge!('level' => severity)
+        json_message.merge!("level" => severity)
       when Integer
-        json_message.merge!('level' => SEVERITY_STR.fetch(severity))
+        json_message.merge!("level" => SEVERITY_STR.fetch(severity))
       else
-        json_message.merge!('level' => SEVERITY_STR.fetch(::Logger::UNKNOWN))
+        json_message.merge!("level" => SEVERITY_STR.fetch(::Logger::UNKNOWN))
       end
     end
 
     def add_message!(json_message, msg)
       case msg
       when String
-        json_message.merge!('message' => msg)
+        json_message.merge!("message" => msg)
       when Hash
-        json_message.merge!('message' => 'Empty message') # default message because it is required
+        json_message.merge!("message" => "Empty message") # default message because it is required
         json_message.merge!(msg)
       else
-        json_message.merge!('message' => msg.inspect)
+        json_message.merge!("message" => msg.inspect)
       end
     end
 
