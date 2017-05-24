@@ -67,6 +67,19 @@ class ApplicationController < ActionController::Base
 end
 ```
 
+To use with Sidekiq
+
+```ruby
+# inside config/initializers/sidekiq.rb
+
+Sidekiq.configure_server do |config|
+  config.server_middleware do |chain|
+    chain.add Huyegger::Middlewares::Sidekiq
+  end
+end
+```
+
+
 ## Contributing
 
 Bug reports and pull requests are welcome on GitHub at https://github.com/mainameiz/huyegger.
