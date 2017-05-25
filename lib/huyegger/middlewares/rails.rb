@@ -8,7 +8,7 @@ module Huyegger
       def call(env)
         @app.call(env)
       ensure
-        ::Rails.logger.purge_context! if defined?(Huyegger) && ::Rails.logger.is_a?(Huyegger::Logger)
+        ::Rails.logger.clear_context! if defined?(Huyegger) && ::Rails.logger.is_a?(Huyegger::Logger)
       end
     end
   end

@@ -6,7 +6,7 @@ module Huyegger
       formatter.context(*args)
     end
 
-    def purge_context!
+    def clear_context!
       formatter.clear_context!
     end
 

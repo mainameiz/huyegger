@@ -18,7 +18,7 @@ module Huyegger
       @original_formatter = original_formatter
     end
 
-    def purge_context!
+    def clear_context!
       __context__.clear
     end
 
