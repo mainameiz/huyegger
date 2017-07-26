@@ -11,11 +11,11 @@ module Huyegger
 
       if ActiveSupport.const_defined?(:Reloader) && ActiveSupport::Reloader.respond_to?(:to_complete)
         ActiveSupport::Reloader.to_complete do
-          ::Rails.logger.purge_context! if ::Rails.logger.is_a?(Huyegger::Logger)
+          ::Rails.logger.clear_context! if ::Rails.logger.is_a?(Huyegger::Logger)
         end
       elsif ActionDispatch.const_defined?(:Reloader) && ActionDispatch::Reloader.respond_to?(:to_cleanup)
         ActionDispatch::Reloader.to_cleanup do
-          ::Rails.logger.purge_context! if ::Rails.logger.is_a?(Huyegger::Logger)
+          ::Rails.logger.clear_context! if ::Rails.logger.is_a?(Huyegger::Logger)
         end
       end
     end
