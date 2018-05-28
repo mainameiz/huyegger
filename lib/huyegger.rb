@@ -9,4 +9,12 @@ module Huyegger
   end
 
   self.json_encoder = DEFAULT_JSON_ENCODER
+
+  def self.stringify_keys(hash)
+    Hash.new.tap do |new_hash|
+      hash.each do |key, value|
+        new_hash[key.to_s] = value
+      end
+    end
+  end
 end

@@ -32,7 +32,7 @@ module Huyegger
       json_message = {}
 
       add_severity!(json_message, severity)
-      json_message.merge!(__context__)
+      json_message.merge!(Huyegger.stringify_keys(__context__))
       add_message!(json_message, msg)
 
       "#{Huyegger.json_encoder.call(json_message)}\n"
@@ -57,7 +57,7 @@ module Huyegger
         json_message.merge!("message" => msg)
       when Hash
         json_message.merge!("message" => "Empty message") # default message because it is required
-        json_message.merge!(msg)
+        json_message.merge!(Huyegger.stringify_keys(msg))
       else
         json_message.merge!("message" => msg.inspect)
       end

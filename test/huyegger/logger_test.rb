@@ -10,17 +10,22 @@ class Huyegger::LoggerTest < Minitest::Test
   end
 
   def output
-    @io.string
+    @io.string.chomp
   end
 
   def test_logger
     assert_respond_to(@huyegger, :context)
-    assert_respond_to(@huyegger, :purge_context!)
+    assert_respond_to(@huyegger, :clear_context!)
   end
 
   def test_output
     @huyegger.info("test")
     assert_equal(output, { level: "INFO", message: "test" }.to_json)
+  end
+
+  def test_message_key
+    @huyegger.info(message: "log message")
+    assert_equal(output, { level: "INFO", message: "log message" }.to_json)
   end
 
   def test_level
