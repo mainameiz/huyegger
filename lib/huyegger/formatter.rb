@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 require "logger"
+require "time"
 
 module Huyegger
   class Formatter
@@ -34,6 +35,7 @@ module Huyegger
       add_severity!(json_message, severity)
       json_message.merge!(Huyegger.stringify_keys(__context__))
       add_message!(json_message, msg)
+      add_timestamp(json_message)
 
       "#{Huyegger.json_encoder.call(json_message)}\n"
     end
@@ -61,6 +63,10 @@ module Huyegger
       else
         json_message.merge!("message" => msg.inspect)
       end
+    end
+
+    def add_timestamp(json_message)
+      json_message['timestamp'] ||= Time.now.xmlschema
     end
 
     def __context__

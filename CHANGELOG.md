@@ -7,6 +7,8 @@ According to https://semver.org/#spec-item-4 0.x versions should not be consider
 
 ## [Unreleased]
 
+- Add `timestamp` field to all messages.
+
 ## 0.4.3 - 2018-05-28
 
 - Fixed double message keys:
