@@ -25,14 +25,14 @@ logger = Huyegger::Logger.new(syslog_logger)
 
 # Write messages:
 logger.info "log message"
-# => { "level": "INFO", "message": "log message" }
+# => { "level": "INFO", "message": "log message", timestamp: "2018-06-18T11:45:54+03:00" }
 logger.info { "http.host" => "127.0.0.1", message: "log message" }
-# => { "level": "INFO", "message": "log message", "http.host": "127.0.0.1" }
+# => { "level": "INFO", "message": "log message", "http.host": "127.0.0.1", timestamp: "2018-06-18T11:45:54+03:00" }
 
 # Store context for all log messages, it will be merged to resulting messages
 logger.context("http.host" => "127.0.0.1")
 logger.info("log message")
-# => { "level": "INFO", "message": "log message", "http.host": "127.0.0.1" }
+# => { "level": "INFO", "message": "log message", "http.host": "127.0.0.1", timestamp: "2018-06-18T11:45:54+03:00" }
 
 # Remove context
 logger.purge_context!
